@@ -73,17 +73,16 @@ export class LoginPage {
         if (user.emailVerified) {
           this.data.getUserProfile(loginResponse.result.uid).subscribe(profile => {
             // check for profile data.
-            // if no profile go to create profile page, otherwise go to main page
             if (!profile) {
               this.data.saveUserProfile(user.uid, {
                 firstName: null,
                 lastName: null,
                 avatar: null,
                 email: user.email,
-                office: null
+                office: null,
+                quote: null
               });
             }
-            //profile ? this.navCtrl.push('HomePage') : this.navCtrl.push('ProfilePage');
             this.navCtrl.push('TabsPage');
             this.dismissLoader();
           });

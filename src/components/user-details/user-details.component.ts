@@ -19,9 +19,6 @@ export class UserDetailsComponent {
 
   ngOnInit() {
     this.profile = this.data.getUserProfile(this.uid);
-    // this.data.getUserProfile(this.uid).subscribe(profile => {
-    //   console.log(profile);
-    // });
   }
 
 }

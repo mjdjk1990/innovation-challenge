@@ -23,7 +23,7 @@ export class DataService {
   async saveUserProfile(uid: string, profile: Profile) {
     const itemRef = this.database.object(`/profiles/${uid}`);
     try {
-      itemRef.update(profile);
+      await itemRef.update(profile);
       return true;
     }
     catch (e) {
@@ -35,7 +35,7 @@ export class DataService {
   async updateUserAvatar(uid: string, avatar: string) {
     const itemRef = this.database.object(`/profiles/${uid}`);
     try {
-      itemRef.update({ avatar: avatar });
+      await itemRef.update({ avatar: avatar });
       return true;
     }
     catch (e) {
@@ -45,43 +45,31 @@ export class DataService {
   }
 
   getDrawings(startAt?: number) {
-    return this.database.list(`/drawings`, ref => ref.limitToFirst(10)).valueChanges();
-    
-      // .flatMap((drawings: Drawing[]) => {
-      //   drawings.map(drawing => {
-      //     this.getUserProfile(drawing.author).subscribe((profile: Profile) => {
-      //       drawing.authorDetails = profile;
-      //     });
-      //   });
-      //   return drawings;
-      // });
-    //return this.database.list(`/drawings`, ref => ref.startAt(startAt || 0).limitToFirst(10)).valueChanges();
-
-    // return this.database.list(`/drawings`, ref => ref.limitToFirst(10)).valueChanges()
-    //   .mergeMap((drawings: Drawing[]) => {
-    //     return Observable.forkJoin(
-    //       drawings.map(drawing =>this.getUserProfile(drawing.author)
-    //         .first()),
-    //       (...vals: Profile[]) => {
-    //         return vals;
-    //       }
-    //     )
-    //   });
-    // return this.database.list(`/drawings`).valueChanges()
-    //   .mergeMap((drawings: Drawing[]) => {
-    //     drawings.forEach(drawing => {
-    //       this.getUserProfile(drawing.author).subscribe((authorDetails: Profile) => {
-    //         drawing.authorDetails = authorDetails;
-    //       });
-    //     });
-    //     return drawings;
-    //   });
+    // return this.database.list(`/drawings`, ref => ref.limitToFirst(10)).valueChanges();
+    return this.database.list(`/drawings`, ref => ref.limitToFirst(10)).snapshotChanges().map(changes => {
+      return changes.map(c => ({$key: c.payload.key, ...c.payload.val()}));
+    });
   }
 
   async saveDrawing(drawing: Drawing) {
     const listRef = this.database.list(`/drawings`);
     try {
-      listRef.push(drawing);
+      await listRef.push(drawing);
+      return true;
+    }
+    catch (e) {
+      console.error(e);
+      return false;
+    }
+  }
+
+  async incrementDrawingGuessCount(drawing: Drawing) {
+    if (!drawing.totalGuesses) {
+      drawing.totalGuesses = 0;
+    }
+    const itemRef = this.database.object(`/drawings/${drawing.$key}`);
+    try {
+      await itemRef.update({ totalGuesses: drawing.totalGuesses + 1 });
       return true;
     }
     catch (e) {

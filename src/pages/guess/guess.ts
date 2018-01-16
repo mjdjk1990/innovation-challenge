@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import { DataService } from '../../providers/data.service';
-import { Subscription } from 'rxjs/Subscription';
 import { Drawing } from '../../models/drawing/drawing.interface';
+import { Profile } from '../../models/profile/profile.interface';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/takeWhile';
+import { DataService } from '../../providers/data.service';
 
 /**
  * Generated class for the GuessPage page.
@@ -19,16 +21,54 @@ import { Drawing } from '../../models/drawing/drawing.interface';
 })
 export class GuessPage {
 
-  drawings: Observable<any>;
-  loadingDrawings: Subscription;
+  drawing: Drawing;
+  hiddenName: string;
+  correct: boolean;
+  remainingGuesses = 5;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(private navCtrl: NavController, private navParams: NavParams,
     private data: DataService
   ) {
+    this.drawing = this.navParams.get('drawing');
+    this.hiddenName = this.drawing.name.replace(/[^_]/g, '_ ');
   }
 
-  ionViewWillEnter() {
-    this.drawings = this.data.getDrawings();
+  getClue() {
   }
 
+  async submitGuess(guess: string) {
+    if (this.remainingGuesses > 0) {
+      let result = await this.data.incrementDrawingGuessCount(this.drawing);
+      if (result) { this.drawing.totalGuesses++; }
+
+      this.remainingGuesses -= 1;
+
+      if (guess === this.drawing.name) {
+        this.correct = true;
+        this.hiddenName = this.drawing.name.split('').join(' ');
+
+        let stopCondition = false;
+        Observable.interval(1300)
+          .takeWhile(() => !stopCondition)
+          .subscribe(i => {
+            stopCondition = true;
+            this.navCtrl.push('ResultsPage', { hasSolved: true, drawing: this.drawing });
+          });
+
+      } else if (this.remainingGuesses <= 0) {
+        this.navCtrl.push('ResultsPage', { hasSolved: false, drawing: this.drawing });
+      } else {
+        // if they get it wrong then fill in any blanks that are correct
+        let newHiddenName = [];
+        for (let i = 0; i < this.drawing.name.length; i++) {
+          if (guess[i] === this.drawing.name[i]) {
+            newHiddenName.push(this.drawing.name[i]);
+          } else {
+            newHiddenName.push('_');
+          }
+        }
+        this.hiddenName = newHiddenName.join(' ');
+      }
+    }
+  }
 }

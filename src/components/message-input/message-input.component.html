@@ -1,0 +1,12 @@
+<ion-grid>
+  <ion-row>
+    <ion-col col-11>
+      <ion-textarea [(ngModel)]="content" placeholder="What is it?..."></ion-textarea>
+    </ion-col>
+    <ion-col col-1>
+      <button ion-button clear icon-only block (click)="send()">
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

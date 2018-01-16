@@ -1,84 +1,35 @@
+<div *ngIf="!drawings" class="container-full">
+  <div class="loading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <div class="text">Loading drawings...</div>
+  </div>
+</div>
 
-<!-- <div *ngFor="let drawing of drawings">
-  {{ drawing | json }}
-</div> -->
 <ion-grid fixed>
   <ion-row>
     <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let drawing of drawings">
 
       <ion-card>
 
+        <user-details [uid]="drawing.author"></user-details>
+
+        <div style="text-align: center">
+          <img id="thumbnail" [src]="drawing.path" (click)="onClick(drawing)">
+        </div>
+
         <ion-item>
-          <user-details [uid]="drawing.author"></user-details>
-        </ion-item>
-
-        <img id="thumbnail" [src]="drawing.path">
-
-        <!-- <ion-card-content>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-            Whoa. This is heavy.</p>
-        </ion-card-content> -->
-
-        <ion-row>
-          <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="chat-bubbles"></ion-icon>
-              <div>12 Guesses</div>
-            </button>
-          </ion-col>
-          <!-- <ion-col>
-            <button ion-button icon-left clear small>
-              <ion-icon name="text"></ion-icon>
-              <div>4 Comments</div>
-            </button>
-          </ion-col> -->
-          <ion-col center>
+          <p item-left>
+            <ion-icon name="chatbubbles"></ion-icon>
+            {{ drawing.totalGuesses ? + ' ' + drawing.totalGuesses : 'No guesses'}}
+          </p>
+          <p item-end>
             <ion-note>
-              11h ago
+              {{ fromNow(drawing.dateCreated) }}
             </ion-note>
-          </ion-col>
-        </ion-row>
+          </p>
+        </ion-item>
 
       </ion-card>
     </ion-col>
   </ion-row>
 </ion-grid>
-
-<!-- <ion-card *ngFor="let drawing of drawings">
-
-  <ion-item>
-    <ion-avatar item-start>
-      <img src="img/marty-avatar.png">
-    </ion-avatar>
-    <h2>Marty McFly</h2>
-    <p>November 5, 1955</p>
-  </ion-item>
-
-  <img src="img/advance-card-bttf.png">
-
-  <ion-card-content>
-    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa.
-      This is heavy.</p>
-  </ion-card-content>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-    </ion-col>
-    <ion-col center text-center>
-      <ion-note>
-        11h ago
-      </ion-note>
-    </ion-col>
-  </ion-row>
-
-</ion-card> -->

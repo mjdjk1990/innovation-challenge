@@ -4,5 +4,7 @@ export interface Drawing {
   author: string;
   name: string;
   path: string;
-  authorDetails?: Profile;
+  dateCreated: string;
+  totalGuesses?: number;
+  $key?: string;
 }

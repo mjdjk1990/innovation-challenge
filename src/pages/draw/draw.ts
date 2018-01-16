@@ -65,26 +65,35 @@ export class DrawPage {
     let prompt = this.alertCtrl.create({
       title: 'What will you draw?',
       enableBackdropDismiss: false,
-      inputs : [
-      {
-          type:'radio',
+      inputs: [
+        {
+          type: 'radio',
           checked: true,
-          label:'Kangaroo',
-          value:'kangaroo'
-      },
-      {
-          type:'radio',
-          label:'Curry',
-          value:'curry'
-      }],
-      buttons : [
-      {
+          label: 'Kangaroo',
+          value: 'kangaroo'
+        },
+        {
+          type: 'radio',
+          label: 'Curry',
+          value: 'curry'
+        }],
+      buttons: [
+        {
+          text: "Cancel",
+          cssClass: 'alert__alert-delete-button',
+          handler: data => {
+            // navigate back to guess page
+            this.navCtrl.parent.select(0);
+          }
+        },
+        {
           text: "Draw it!",
           handler: data => {
             this.drawing.name = data;
           }
-      }]});
-      prompt.present();
+        }]
+    });
+    prompt.present();
   }
 
   async saveCanvas(dataURL) {
@@ -99,9 +108,10 @@ export class DrawPage {
     // create database entry for drawing
     this.drawing.author = this.auth.uid;
     this.drawing.path = snapshot['downloadURL'];
+    this.drawing.dateCreated = new Date().toJSON().toString();
     let result = await this.data.saveDrawing(this.drawing);
 
-    if(!result) {
+    if (!result) {
       this.showAlert('Error saving drawing!');
     } else {
       this.showToast('Drawing created!');

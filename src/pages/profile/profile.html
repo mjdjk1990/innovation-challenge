@@ -2,7 +2,10 @@
 
   <ion-navbar>
     <ion-title>Profile</ion-title>
-    <ion-buttons right>
+    <ion-buttons right *ngIf="loadingProfile && loadingProfile.closed">
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="exit"></ion-icon>
+      </button>
       <button ion-button (click)="save()">
         Save
       </button>
@@ -48,6 +51,10 @@
     <ion-item>
       <ion-label floating>Last name</ion-label>
       <ion-input [(ngModel)]="profile.lastName" name="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>My Quote</ion-label>
+      <ion-input [(ngModel)]="profile.quote" name="quote"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Office</ion-label>

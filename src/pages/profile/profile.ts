@@ -188,6 +188,10 @@ export class ProfilePage {
     this.dismissLoader();
   }
 
+  logout() {
+    this.auth.signOut();
+  }
+
   refreshProfile() {
     let uid = this.auth.uid;
 

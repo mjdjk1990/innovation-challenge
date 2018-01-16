@@ -13,7 +13,7 @@ export class TabsPage {
   tab3Root: string;
 
   constructor() {
-    this.tab1Root = 'GuessPage';
+    this.tab1Root = 'ListPage';
     this.tab2Root = 'DrawPage';
     this.tab3Root = 'ProfilePage';
   }

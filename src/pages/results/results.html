@@ -1,0 +1,17 @@
+<ion-content padding>
+  <div style="text-align: center">
+    <h2>{{ hasSolved ? 'Congratulations!' : 'Love is over 💔'}}</h2>
+    <h4>It was a...</h4>
+    <h2>{{ drawing.name }}!</h2>
+  </div>
+  <div class="avatar" [style.background-image]="'url('+ drawing.path +')'"></div>
+
+  <button ion-button margin-top outline block large color="primary" (click)="viewArtist()">
+    Artist info
+  </button>
+
+  <button ion-button margin-top outline block large color="secondary" (click)="goBack()">
+    Go back
+  </button>
+
+</ion-content>

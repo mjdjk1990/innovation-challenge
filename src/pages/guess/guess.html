@@ -1,9 +1,3 @@
-<!--
-  Generated template for the GuessPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,6 +7,23 @@
 </ion-header>
 
 
-<ion-content padding>
- <drawings-list [drawings]="drawings | async"></drawings-list>
+<ion-content padding color="dark">
+
+  <user-details [uid]="drawing.author"></user-details>
+  
+  <br>
+
+  <img id="guess-img" [src]="drawing.path">
+
+  <div class="guess-text">
+    <div class="hidden-name" [ngClass]="correct ? 'correct' : ''">{{ hiddenName }}</div>
+    <div class="remaining-text">{{ remainingGuesses }} guess{{ remainingGuesses > 1 ? 'es' : '' }} remaining...</div>
+  </div>
+
+  <ion-footer *ngIf="remainingGuesses > 0">
+    <ion-toolbar>
+      <message-input (sendMessage)="submitGuess($event)"></message-input>
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-content>

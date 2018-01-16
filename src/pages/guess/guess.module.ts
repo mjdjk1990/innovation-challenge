@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { GuessPage } from './guess';
-import { DrawingsListModule } from '../../components/drawings-list/drawings-list.module';
+import { UserDetailsModule } from '../../components/user-details/user-details.module';
+import { MessageInputModule } from '../../components/message-input/message-input.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { DrawingsListModule } from '../../components/drawings-list/drawings-list
   ],
   imports: [
     IonicPageModule.forChild(GuessPage),
-    DrawingsListModule
+    UserDetailsModule,
+    MessageInputModule
   ],
 })
 export class GuessPageModule {}

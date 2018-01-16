@@ -1,5 +1,15 @@
 drawings-list {
+  ion-card {
+    min-height: 300px;
+  }
   #thumbnail {
-    height: 150px;
+    display: block;
+    width: 155px;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    margin: 0 auto;
   }
 }

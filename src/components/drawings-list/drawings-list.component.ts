@@ -1,13 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Drawing } from '../../models/drawing/drawing.interface';
 import { DataService } from '../../providers/data.service';
+import * as moment from 'moment';
 
-/**
- * Generated class for the DrawingsListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+// changeDetection: ChangeDetectionStrategy.OnPush,
+
 @Component({
   selector: 'drawings-list',
   templateUrl: 'drawings-list.component.html'
@@ -15,11 +12,36 @@ import { DataService } from '../../providers/data.service';
 export class DrawingsListComponent {
 
   @Input('drawings') drawings: Drawing[];
+  @Output('drawingSelected') drawingSelected: EventEmitter<Drawing> = new EventEmitter<Drawing>();
+
+  sortedDrawings: Drawing[];
 
   constructor(private data: DataService) {
-    
   }
 
-  
+  // to handle undefined or null values in the date and not crash
+  getTime(date?: Date) {
+    return date != null ? date.getTime() : 0;
+  }
+
+
+  // sorted by oldest first
+  sortByDate(): void {
+    this.drawings.sort((a: Drawing, b: Drawing) => {
+      return this.getTime(new Date(a.dateCreated)) - this.getTime(new Date(b.dateCreated));
+    });
+  }
+
+  ngOnChanges() {
+    if (this.drawings) { this.sortByDate(); }
+  }
+
+  onClick(drawing: Drawing) {
+    this.drawingSelected.emit(drawing);
+  }
+
+  fromNow(date: string) {
+    return moment(date).fromNow();
+  }
 
 }

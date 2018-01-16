@@ -1,7 +1,13 @@
-<ion-item>
+<ion-item no-lines color="light">
   <ion-avatar item-start>
     <img [src]="(profile | async)?.avatar">
   </ion-avatar>
+
+  <div item-end>
+    <img id="flag-img" src="assets/imgs/flag-aus.png">
+  </div>
+
   <h2>{{ (profile | async)?.firstName }} {{ (profile | async)?.lastName }}</h2>
-  <p>{{ (profile | async)?.office }}</p>
+  <p>{{ (profile | async)?.quote }}</p>
+
 </ion-item>
