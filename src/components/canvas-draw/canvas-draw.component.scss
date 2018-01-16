@@ -1,0 +1,38 @@
+canvas-draw {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    display: block;
+
+    #top-toolbar{
+        position: absolute;
+        top: 0;
+    }
+
+    #bottom-toolbar {
+        position: absolute;
+        bottom: 0;
+    }
+
+    #drawing-name {
+        position: absolute;
+        text-align: center;
+        margin-top: 50px;
+        text-transform: capitalize;
+    }
+
+    // .start-text {
+    //     text-align: center;
+    //     white-space: normal;
+    //     padding-top: 80px;
+    //     background-color: red;
+    //     color: rgba(0,0,0,.4);
+    //     z-index: -1;
+    //     .text {
+    //         padding-top: 1em;
+    //     }
+    //     ion-icon {
+    //         font-size: 3em;
+    //     }
+    // }
+}

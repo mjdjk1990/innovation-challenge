@@ -1,0 +1,65 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="save()">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="container-full" *ngIf="loadingProfile && !loadingProfile.closed; else showProfile">
+    <div class="loading">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <div class="text">Loading profile...</div>
+    </div>
+  </div>
+
+  <ng-template #showProfile>
+
+    <div padding text-center>
+      <div class="avatar" [style.background-image]="'url('+ profile?.avatar +')'"></div>
+
+      <div *ngIf="!isCore; else platformIsCore">
+        <button ion-button margin-top (click)="onDisplayPicture()">Change Photo</button>
+      </div>
+
+      <ng-template #platformIsCore>
+        <button ion-button margin-top>Change Photo
+          <input type="file" accept="image/*" (change)="onChangePhoto($event)" id="file-input">
+        </button>
+      </ng-template>
+    </div>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input [(ngModel)]="profile.email" type="email" name="email" email></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>First name</ion-label>
+      <ion-input [(ngModel)]="profile.firstName" name="firstName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Last name</ion-label>
+      <ion-input [(ngModel)]="profile.lastName" name="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Office</ion-label>
+      <ion-select [(ngModel)]="profile.office">
+        <ion-option value="Melbourne">Melbourne, Australia</ion-option>
+        <ion-option value="Sydney">Sydney, Australia</ion-option>
+        <ion-option value="Brisbane">Brisbane, Australia</ion-option>
+        <ion-option value="India1">Somewhere, India</ion-option>
+        <ion-option value="India2">Somewhere else, India</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ng-template>
+
+</ion-content>

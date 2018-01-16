@@ -1,0 +1,8 @@
+<div *ngIf="!rootPage" class="container-full">
+  <div class="loading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <div class="text">Loading...</div>
+  </div>
+</div>
+
+<ion-nav [root]="rootPage"></ion-nav>

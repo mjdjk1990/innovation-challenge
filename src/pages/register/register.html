@@ -1,0 +1,21 @@
+<ion-content padding>
+  <h1>Register</h1>
+  <ion-item>
+    <ion-label floating>Email Address</ion-label>
+    <ion-input [(ngModel)]="account.email" type="email" name="email" #email="ngModel" required email></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <!-- pattern="(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,}$" -->
+    <ion-input [(ngModel)]="account.password" type="password" name="password" #password="ngModel" required></ion-input>
+  </ion-item>
+
+  <button ion-button margin-top outline block large color="primary" (click)="register()">Register</button>
+
+  <div style="text-align: center">
+    <p padding>
+      <a (click)="returnToLoginPage()">Return to login</a>
+    </p>
+  </div>
+</ion-content>

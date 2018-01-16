@@ -1,0 +1,7 @@
+<ion-item>
+  <ion-avatar item-start>
+    <img [src]="(profile | async)?.avatar">
+  </ion-avatar>
+  <h2>{{ (profile | async)?.firstName }} {{ (profile | async)?.lastName }}</h2>
+  <p>{{ (profile | async)?.office }}</p>
+</ion-item>

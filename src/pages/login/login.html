@@ -1,0 +1,23 @@
+<ion-content padding>
+  <h1>Login</h1>
+  <ion-item>
+    <ion-label floating>Email</ion-label>
+    <ion-input [(ngModel)]="account.email" type="email" name="email" #email="ngModel" email></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input [(ngModel)]="account.password" [type]="passwordHidden ? 'password' : 'text'" name="password" #password="ngModel"></ion-input>
+    <button ion-button item-right icon-only clear (click)="passwordHidden = !passwordHidden">
+      <ion-icon color="primary" [name]="passwordHidden ? 'eye-off' : 'eye'"></ion-icon>
+    </button>
+  </ion-item>
+
+  <button ion-button margin-top outline block large color="primary" (click)="login()">Log In</button>
+
+  <div style="text-align: center">
+    <p padding>
+      <a (click)="navigateToRegisterPage()">Register</a>
+    </p>
+  </div>
+
+</ion-content>

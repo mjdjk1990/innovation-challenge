@@ -1,0 +1,51 @@
+<ion-toolbar color="light" id="top-toolbar">
+  <ion-buttons left>
+    <button *ngFor="let colour of availableColours" icon-only ion-button (click)="changeColour(colour)" [ngStyle]="{ border : currentColour === colour ? '1px solid ' + colour : 'none' }">
+      <ion-icon [style.color]="colour" name="brush"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-buttons right>
+    <button ion-button (click)="save()">
+      Save
+    </button>
+  </ion-buttons>
+</ion-toolbar>
+
+<!-- <div *ngIf="!startedDrawing" class="start-text">
+  <div class="start-content">
+    <ion-icon name="brush"></ion-icon>
+    <div class="text">Draw something here!</div>
+  </div>
+</div> -->
+
+<ion-item id="drawing-name">
+  {{ name }}
+</ion-item>
+
+<!-- touchstart touchmove -->
+<canvas #myCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)" (mousedown)="handleStart($event)" (mousemove)="handleMove($event)" (mouseup)="mouseDown = false"></canvas>
+
+<ion-toolbar id="bottom-toolbar">
+  <ion-buttons left>
+    <button color="dark" ion-button icon-only (click)="clearCanvas()">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-buttons right>
+    <button color="dark" ion-button icon-only (click)="changeSize(5)" [ngStyle]="{ color : brushSize === 5 ? currentColour : '' }">
+      <ion-icon style="font-size: 0.25em;" name="radio-button-on"></ion-icon>
+    </button>
+    <button color="dark" ion-button icon-only (click)="changeSize(10)" [ngStyle]="{ color : brushSize === 10 ? currentColour : '' }">
+      <ion-icon style="font-size: 0.5em;" name="radio-button-on"></ion-icon>
+    </button>
+    <button color="dark" ion-button icon-only (click)="changeSize(20)" [ngStyle]="{ color : brushSize === 20 ? currentColour : '' }">
+      <ion-icon style="font-size: 1em;" name="radio-button-on"></ion-icon>
+    </button>
+    <button color="dark" ion-button icon-only (click)="changeSize(50)" [ngStyle]="{ color : brushSize === 50 ? currentColour : '' }">
+      <ion-icon style="font-size: 2em;" name="radio-button-on"></ion-icon>
+    </button>
+    <button color="dark" ion-button icon-only (click)="changeSize(200)" [ngStyle]="{ color : brushSize === 200 ? currentColour : '' }">
+      <ion-icon style="font-size: 3em;" name="radio-button-on"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-toolbar>
