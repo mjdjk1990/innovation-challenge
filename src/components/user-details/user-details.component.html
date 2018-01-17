@@ -4,7 +4,7 @@
   </ion-avatar>
 
   <div item-end>
-    <img id="flag-img" [src]="(profile | async)?.office.country === 'AU' ? 'assets/imgs/flag-aus.png' : (profile | async)?.office.country === 'IND' ? 'assets/imgs/flag-india.png' : ''">
+    <img id="flag-img" [src]="(profile | async)?.office?.country === 'AU' ? 'assets/imgs/flag-aus.png' : (profile | async)?.office?.country === 'IND' ? 'assets/imgs/flag-india.png' : ''">
   </div>
 
   <h2>{{ (profile | async)?.firstName }} {{ (profile | async)?.lastName }}</h2>

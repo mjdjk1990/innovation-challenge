@@ -22,4 +22,10 @@ page-profile {
     left: 0;
     z-index: 999;
   }
+
+  ion-select {
+    div.select-text.select-placeholder {
+       color: black;
+    }
+ }
 }

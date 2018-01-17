@@ -31,7 +31,7 @@ export class ListPage {
     artistInfoModal.present();
 
     artistInfoModal.onWillDismiss(data => {
-      if(data.goToDrawing) {
+      if(data && data.goToDrawing) {
         this.navCtrl.push('GuessPage', { drawing: drawing });
       }
     });

@@ -58,7 +58,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>Office</ion-label>
-      <ion-select [(ngModel)]="profile.office">
+      <ion-select [(ngModel)]="profile.office" name="profile.office" [placeholder]="profile.office?.city + ', ' + profile.office?.country">
         <ion-option *ngFor="let office of offices" [value]="office">
           {{ office.city }}, {{ office.country }}
         </ion-option>

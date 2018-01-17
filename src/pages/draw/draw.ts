@@ -113,7 +113,7 @@ export class DrawPage {
 
     let prompt = this.alertCtrl.create({
       title: 'What will you draw?',
-      enableBackdropDismiss: false,
+      enableBackdropDismiss: true,
       inputs: [
         {
           type: 'radio',
@@ -143,8 +143,6 @@ export class DrawPage {
           cssClass: 'alert__alert-refresh-button',
           handler: data => {
             this.showDrawingSelectionOptions();
-            // navigate back to guess page
-            //this.navCtrl.parent.select(0);
           }
         },
         {
@@ -160,6 +158,15 @@ export class DrawPage {
       ]
     });
     prompt.present();
+    prompt.onWillDismiss(data => {
+      if(!data) {
+        this.navCtrl.parent.select(0);
+      } else {
+        if(data !== 'user_select') {
+          this.drawing.name = data;
+        }
+      }
+    });
   }
 
   async saveCanvas(dataURL) {
