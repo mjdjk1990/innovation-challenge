@@ -6,9 +6,14 @@
   </div>
   <div class="avatar" [style.background-image]="'url('+ drawing.path +')'"></div>
 
-  <button ion-button margin-top outline block large color="primary" (click)="viewArtist()">
+  <p>Other people thought...</p>
+  <div *ngFor="let guess of otherGuesses">
+    <p><span [user]="guess.uid"></span> guessed <span [ngClass]="guess.guess === drawing.name ? 'correct' : 'incorrect'">{{ guess.guess }}</span> {{ fromNow(guess.timestamp) }}!</p>
+  </div>
+
+  <!-- <button ion-button margin-top outline block large color="primary" (click)="viewArtist()">
     Artist info
-  </button>
+  </button> -->
 
   <button ion-button margin-top outline block large color="secondary" (click)="goBack()">
     Go back

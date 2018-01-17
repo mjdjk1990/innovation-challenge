@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/takeWhile';
 import { DataService } from '../../providers/data.service';
+import { AuthService } from '../../providers/auth.service';
 
 /**
  * Generated class for the GuessPage page.
@@ -27,7 +28,7 @@ export class GuessPage {
   remainingGuesses = 5;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
-    private data: DataService
+    private data: DataService, private auth: AuthService
   ) {
     this.drawing = this.navParams.get('drawing');
     this.hiddenName = this.drawing.name.replace(/[^_]/g, '_ ');
@@ -38,12 +39,16 @@ export class GuessPage {
 
   async submitGuess(guess: string) {
     if (this.remainingGuesses > 0) {
+      // update guess count in the DB
       let result = await this.data.incrementDrawingGuessCount(this.drawing);
       if (result) { this.drawing.totalGuesses++; }
 
+      // update guess list in DB
+      await this.data.updateGuessHistory(this.drawing, this.auth.uid, guess);
+
       this.remainingGuesses -= 1;
 
-      if (guess === this.drawing.name) {
+      if (guess.toLowerCase() === this.drawing.name.toLowerCase()) {
         this.correct = true;
         this.hiddenName = this.drawing.name.split('').join(' ');
 

@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Drawing } from '../../models/drawing/drawing.interface';
 import { DataService } from '../../providers/data.service';
-import * as moment from 'moment';
+import { Utilities } from '../../shared/utilities';
 
 // changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -24,11 +24,10 @@ export class DrawingsListComponent {
     return date != null ? date.getTime() : 0;
   }
 
-
-  // sorted by oldest first
+  // sorted by newest first
   sortByDate(): void {
     this.drawings.sort((a: Drawing, b: Drawing) => {
-      return this.getTime(new Date(a.dateCreated)) - this.getTime(new Date(b.dateCreated));
+      return this.getTime(new Date(b.dateCreated)) - this.getTime(new Date(a.dateCreated));
     });
   }
 
@@ -41,7 +40,7 @@ export class DrawingsListComponent {
   }
 
   fromNow(date: string) {
-    return moment(date).fromNow();
+    return Utilities.fromNow(date);
   }
 
 }

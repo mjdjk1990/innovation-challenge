@@ -22,6 +22,10 @@ export class ArtistPage {
   onClose() {
     this.view.dismiss();
   }
+
+  goToGuessPage() {
+   this.view.dismiss({goToDrawing: true});
+  }
   
   ionViewWillLoad() {
     this.loadingProfile = this.data.getUserProfile(this.navParams.get('uid')).subscribe((profile: Profile) => {

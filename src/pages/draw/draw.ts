@@ -6,6 +6,8 @@ import { Drawing } from '../../models/drawing/drawing.interface';
 import { DataService } from '../../providers/data.service';
 import { AuthService } from '../../providers/auth.service';
 import { Profile } from '../../models/profile/profile.interface';
+import DRAWING_IDEAS from '../../shared/drawing-ideas';
+import { Utilities } from '../../shared/utilities';
 
 @IonicPage()
 @Component({
@@ -16,6 +18,8 @@ export class DrawPage {
 
   drawing: Drawing;
   loading: Loading;
+
+  drawingIdeas = DRAWING_IDEAS;
 
   constructor(
     private navCtrl: NavController,
@@ -61,7 +65,52 @@ export class DrawPage {
     }).present();
   }
 
+  showInputErrorAlert() {
+    this.alertCtrl.create({
+      title: `Invalid entry!`,
+      message: 'Drawing name must be bewteen 2 and 10 characters and not contain spaces, special characters or numbers!',
+      buttons: [{text: 'OK', handler: () => this.showCustomInputAlert() }],
+      enableBackdropDismiss: false
+    }).present();
+  }
+
+  showCustomInputAlert() {
+    let prompt = this.alertCtrl.create({
+      title: 'What will you draw?',
+      enableBackdropDismiss: false,
+      inputs: [
+        {
+          name: 'input',
+          placeholder: 'Drawing name'
+        }
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          cssClass: 'alert__alert-cancel-button',
+          handler: data => {
+            this.showDrawingSelectionOptions();
+          }
+        },
+        {
+          text: "Draw it!",
+          handler: data => {
+            if(!data.input.match(/^[a-zA-Z_\-]{3,10}$/)) {
+              this.showInputErrorAlert();
+            } else {
+              this.drawing.name = data.input.toLowerCase();
+            }
+          }
+        }
+      ]
+    }).present();
+  }
+
   showDrawingSelectionOptions() {
+    let drawingOptions = [];
+    drawingOptions = Utilities.shuffle(DRAWING_IDEAS);
+    drawingOptions = drawingOptions.slice(0, 3);
+
     let prompt = this.alertCtrl.create({
       title: 'What will you draw?',
       enableBackdropDismiss: false,
@@ -69,29 +118,46 @@ export class DrawPage {
         {
           type: 'radio',
           checked: true,
-          label: 'Kangaroo',
-          value: 'kangaroo'
+          label: drawingOptions[0],
+          value: drawingOptions[0]
         },
         {
           type: 'radio',
-          label: 'Curry',
-          value: 'curry'
-        }],
+          label: drawingOptions[1],
+          value: drawingOptions[1]
+        },
+        {
+          type: 'radio',
+          label: drawingOptions[2],
+          value: drawingOptions[2]
+        },
+        {
+          type: 'radio',
+          label: 'I want to do my own drawing!',
+          value: 'user_select'
+        }
+      ],
       buttons: [
         {
-          text: "Cancel",
-          cssClass: 'alert__alert-delete-button',
+          text: "Refresh",
+          cssClass: 'alert__alert-refresh-button',
           handler: data => {
+            this.showDrawingSelectionOptions();
             // navigate back to guess page
-            this.navCtrl.parent.select(0);
+            //this.navCtrl.parent.select(0);
           }
         },
         {
           text: "Draw it!",
           handler: data => {
-            this.drawing.name = data;
+            if (data === 'user_select') {
+              this.showCustomInputAlert();
+            } else {
+              this.drawing.name = data;
+            }
           }
-        }]
+        }
+      ]
     });
     prompt.present();
   }

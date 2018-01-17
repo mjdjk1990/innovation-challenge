@@ -14,7 +14,7 @@ export class MessageInputComponent {
 
   send() {
     if (this.content && this.content.trim() !== "") {
-      this.sendMessage.emit(this.content);
+      this.sendMessage.emit(this.content.toLowerCase());
       this.content = "";
     }
   }

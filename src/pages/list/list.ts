@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalOptions, Modal, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { DataService } from '../../providers/data.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,12 +16,25 @@ export class ListPage {
   loadingDrawings: Subscription;
 
   constructor(private navCtrl: NavController,
+    private modalCtrl: ModalController,
     private data: DataService
   ) {
   }
 
   drawingSelected(drawing: Drawing) {
-    this.navCtrl.push('GuessPage', { drawing: drawing });
+    //this.navCtrl.push('GuessPage', { drawing: drawing });
+
+    const options: ModalOptions = {
+      enableBackdropDismiss: false
+    }
+    const artistInfoModal: Modal = this.modalCtrl.create('ArtistPage', { uid: drawing.author }, options);
+    artistInfoModal.present();
+
+    artistInfoModal.onWillDismiss(data => {
+      if(data.goToDrawing) {
+        this.navCtrl.push('GuessPage', { drawing: drawing });
+      }
+    });
   }
 
   ionViewWillEnter() {

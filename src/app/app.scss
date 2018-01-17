@@ -32,6 +32,7 @@
   }
 }
 
+// avatar on profile pages
 .avatar {
     display: block;
     width: 155px;
@@ -44,11 +45,17 @@
     margin: 0 auto;
     border: 5px solid #f1f1f1;
     box-shadow: 0 0 5px #999;
-  }
+}
+
+// alert radio button label
+.alert-radio-label:first-letter {
+    text-transform: capitalize;
+}
 
 // custom buttons for alerts
-.alert__alert-delete-button {
-    //background-color: color($colors, danger) !important;
+.alert__alert-refresh-button {
+    color: color($colors, secondary) !important;
+}
+.alert__alert-cancel-button {
     color: color($colors, danger) !important;
-    //box-shadow: 0px -4px 22px -8px rgba(0,0,0,0.75); 
 }

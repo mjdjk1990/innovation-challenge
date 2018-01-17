@@ -17,7 +17,7 @@ export class DataService {
   }
 
   getUserProfile(uid: string) {
-    return this.database.object(`/profiles/${uid}`).valueChanges();
+    return this.database.object(`/profiles/${uid}`).valueChanges().take(1);
   }
 
   async saveUserProfile(uid: string, profile: Profile) {
@@ -73,6 +73,22 @@ export class DataService {
       return true;
     }
     catch (e) {
+      console.error(e);
+      return false;
+    }
+  }
+
+  getGuessesForDrawing(drawing: Drawing) {
+    return this.database.object(`/guesses/${drawing.$key}`).valueChanges().take(1); 
+  }
+
+  async updateGuessHistory(drawing: Drawing, uid: string, guess: string) {
+    const itemRef = this.database.object(`/guesses/${drawing.$key}/${uid}`);
+    try {
+      await itemRef.update({[guess]: new Date().toJSON().toString()});
+      return true;
+    }
+    catch(e) {
       console.error(e);
       return false;
     }
