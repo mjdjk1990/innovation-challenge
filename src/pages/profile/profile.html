@@ -59,11 +59,9 @@
     <ion-item>
       <ion-label floating>Office</ion-label>
       <ion-select [(ngModel)]="profile.office">
-        <ion-option value="Melbourne">Melbourne, Australia</ion-option>
-        <ion-option value="Sydney">Sydney, Australia</ion-option>
-        <ion-option value="Brisbane">Brisbane, Australia</ion-option>
-        <ion-option value="India1">Somewhere, India</ion-option>
-        <ion-option value="India2">Somewhere else, India</ion-option>
+        <ion-option *ngFor="let office of offices" [value]="office">
+          {{ office.city }}, {{ office.country }}
+        </ion-option>
       </ion-select>
     </ion-item>
 

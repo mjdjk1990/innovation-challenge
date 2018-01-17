@@ -9,6 +9,7 @@ import { StorageService } from '../../providers/storage.service';
 import { Camera } from '@ionic-native/camera';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../providers/auth.service';
+import OFFICES from '../../shared/offices';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class ProfilePage {
   loading: Loading;
   isCore: boolean;
   photo: string;
+  offices = OFFICES;
 
   constructor(
     private navCtrl: NavController,

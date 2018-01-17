@@ -22,7 +22,7 @@
 
   <ng-template #showProfile>
     <div class="avatar" [style.background-image]="'url('+ artist?.avatar +')'"></div>
-    
+
     <h6 style="text-align: center;">{{ artist.firstName }} {{ artist.lastName }}</h6>
     <p style="text-align: center; font-style: italic">
       {{ artist?.quote }}
@@ -30,11 +30,11 @@
 
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input [(ngModel)]="artist.email" name="email" disabled></ion-input>
+      <ion-input [value]="artist.email" disabled></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>Office</ion-label>
-      <ion-input [(ngModel)]="artist.office" name="office" disabled></ion-input>
+      <ion-input [value]="artist.office.city + ', ' + artist.office.country" disabled></ion-input>
     </ion-item>
 
   </ng-template>

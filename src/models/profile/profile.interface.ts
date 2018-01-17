@@ -3,6 +3,9 @@ export interface Profile {
   lastName: string;
   avatar: string;
   email: string;
-  office: string;
+  office: {
+    city: string;
+    country: string;
+  };
   quote: string;
 }
