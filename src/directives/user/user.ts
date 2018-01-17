@@ -16,7 +16,6 @@ export class UserDirective {
   ngOnInit() {
     let html = this.el.nativeElement;
     this.subscriber = this.data.getUserProfile(this.user).subscribe((profile: Profile) => {
-      console.log(profile);
       html.innerHTML = `${profile.firstName} ${profile.lastName}`;
     });
   }

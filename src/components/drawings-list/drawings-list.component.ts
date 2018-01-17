@@ -31,16 +31,16 @@ export class DrawingsListComponent {
     });
   }
 
-  ngOnChanges() {
-    if (this.drawings) { this.sortByDate(); }
-  }
-
   onClick(drawing: Drawing) {
     this.drawingSelected.emit(drawing);
   }
 
   fromNow(date: string) {
     return Utilities.fromNow(date);
+  }
+
+  ngOnChanges() {
+    if (this.drawings) { this.sortByDate(); }
   }
 
 }

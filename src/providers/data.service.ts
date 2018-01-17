@@ -9,6 +9,7 @@ import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angular
 import { User } from "firebase/app";
 import { Profile } from "../models/profile/profile.interface";
 import { Drawing } from "../models/drawing/drawing.interface";
+import { GuessStatus } from "../models/guess/guess-status.interface";
 
 @Injectable()
 export class DataService {
@@ -86,6 +87,27 @@ export class DataService {
     const itemRef = this.database.object(`/guesses/${drawing.$key}/${uid}`);
     try {
       await itemRef.update({[guess]: new Date().toJSON().toString()});
+      return true;
+    }
+    catch(e) {
+      console.error(e);
+      return false;
+    }
+  }
+
+  getGuessStatus(drawing: Drawing, uid: string) {
+    return this.database.object(`/guessStatus/${drawing.$key}/${uid}`).valueChanges().take(1); 
+  }
+
+  async updateGuessStatus(drawing: Drawing, uid: string, status: GuessStatus) {
+    const itemRef = this.database.object(`/guessStatus/${drawing.$key}/${uid}`);
+    try {
+      await itemRef.update(
+        {
+          remainingGuesses: status.remainingGuesses,
+          hasSolved: status.hasSolved
+        }
+      );
       return true;
     }
     catch(e) {

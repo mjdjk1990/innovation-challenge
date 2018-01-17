@@ -9,7 +9,7 @@
   <ion-row>
     <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let drawing of drawings">
 
-      <ion-card>
+      <ion-card [guess-status]="drawing.$key">
 
         <user-details [uid]="drawing.author"></user-details>
 

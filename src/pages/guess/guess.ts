@@ -7,6 +7,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/takeWhile';
 import { DataService } from '../../providers/data.service';
 import { AuthService } from '../../providers/auth.service';
+import { GuessStatus } from '../../models/guess/guess-status.interface';
 
 /**
  * Generated class for the GuessPage page.
@@ -22,10 +23,12 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class GuessPage {
 
+  private guessCap = 2;
+
   drawing: Drawing;
   hiddenName: string;
   correct: boolean;
-  remainingGuesses = 5;
+  remainingGuesses: number;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
     private data: DataService, private auth: AuthService
@@ -47,6 +50,9 @@ export class GuessPage {
       await this.data.updateGuessHistory(this.drawing, this.auth.uid, guess);
 
       this.remainingGuesses -= 1;
+
+      // update guess status for the user for this drawing in the DB
+      await this.data.updateGuessStatus(this.drawing, this.auth.uid, {remainingGuesses: this.remainingGuesses, hasSolved: (guess === this.drawing.name)});
 
       if (guess.toLowerCase() === this.drawing.name.toLowerCase()) {
         this.correct = true;
@@ -75,5 +81,22 @@ export class GuessPage {
         this.hiddenName = newHiddenName.join(' ');
       }
     }
+  }
+
+  ionViewWillLoad() {
+    // get guess status for the user
+    this.data.getGuessStatus(this.drawing, this.auth.uid).subscribe((guessStatus: GuessStatus) => {
+      console.log(guessStatus);
+      if(guessStatus) {
+        if(guessStatus.remainingGuesses <= 0 || guessStatus.hasSolved) {
+          console.log(guessStatus.remainingGuesses);
+          this.navCtrl.push('ResultsPage', { hasSolved: guessStatus.hasSolved, drawing: this.drawing });
+        } else {
+          this.remainingGuesses = guessStatus.remainingGuesses;
+        } 
+      } else {
+        this.remainingGuesses = this.guessCap;
+      }
+    });
   }
 }
