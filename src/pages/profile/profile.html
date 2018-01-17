@@ -3,8 +3,8 @@
   <ion-navbar>
     <ion-title>Profile</ion-title>
     <ion-buttons right *ngIf="loadingProfile && loadingProfile.closed">
-      <button ion-button icon-only (click)="logout()">
-        <ion-icon name="exit"></ion-icon>
+      <button ion-button (click)="logout()">
+        Logout
       </button>
       <button ion-button (click)="save()">
         Save

@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ artist?.firstName }} {{ artist?.lastName }}</ion-title>
+    <ion-title>{{ artist?.firstName }}'s Drawing</ion-title>
     <ion-buttons end>
       <button ion-button clear icon-only (click)="onClose()">
         <ion-icon name="close"></ion-icon>
@@ -28,10 +28,10 @@
       {{ artist?.quote }}
     </p>
 
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input [value]="artist.email" disabled></ion-input>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--<ion-label floating>Email</ion-label>-->
+      <!--<ion-input [value]="artist.email" disabled></ion-input>-->
+    <!--</ion-item>-->
     <ion-item>
       <ion-label floating>Office</ion-label>
       <ion-input [value]="artist.office?.city + ', ' + artist.office?.country" disabled></ion-input>
