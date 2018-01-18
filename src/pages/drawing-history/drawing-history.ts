@@ -32,6 +32,7 @@ export class DrawingHistoryPage {
   }
 
   fromNow(date: string) {
+    //console.log(date);
     return Utilities.fromNow(date);
   }
 
@@ -42,7 +43,7 @@ export class DrawingHistoryPage {
         guessData.user = key;
 
         Object.keys(data[key]).forEach(guessKey => {
-          guessData.guesses.push({[guessKey]: data[key][guessKey]});
+          guessData.guesses.push({ guess: guessKey, timestamp: data[key][guessKey]});
         });
         this.guesses.push(guessData);
       });

@@ -21,7 +21,7 @@
       <user-details [uid]="guessData.user"></user-details>
       <ion-item *ngFor="let guess of guessData.guesses">
         <p>Guessed
-          <span [ngClass]="getGuessedWord(guess) === drawing.name ? 'correct' : 'incorrect'"><strong>{{ getGuessedWord(guess) }}</strong></span> {{ fromNow(guess.timestamp) }}!</p>
+          <span [ngClass]="guess.guess === drawing.name ? 'correct' : 'incorrect'"><strong>{{ guess.guess }}</strong></span> {{ fromNow(guess.timestamp) }}!</p>
       </ion-item>
     </ion-card>
   </ion-list>

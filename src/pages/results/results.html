@@ -19,7 +19,7 @@
   <div class="avatar" [style.background-image]="'url('+ drawing.path +')'"></div>
 
   <ion-list margin-top>
-    <ion-item no-lines style="text-align:center">
+    <div style="text-align:center">
       <p>Other people thought...</p>
       <p *ngFor="let guess of otherGuesses">
         <span>
@@ -29,7 +29,7 @@
           <strong>{{ guess.guess }}</strong>
         </span> {{ fromNow(guess.timestamp) }}!
       </p>
-    </ion-item>
+    </div>
   </ion-list>
 
   <div style="text-align:center">
