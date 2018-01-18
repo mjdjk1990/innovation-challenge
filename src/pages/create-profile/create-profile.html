@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create Profile</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="logout()">
+        Logout
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <edit-profile (profileSaved)="profileSaved()"></edit-profile>
+</ion-content>

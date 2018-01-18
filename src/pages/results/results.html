@@ -1,22 +1,39 @@
+<ion-header>
+  <ion-navbar [hideBackButton]="true">
+    <ion-title>{{ hasSolved ? 'Congratulations!' : 'Better luck next time!'}}</ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button clear (click)="goBack()">
+        Back
+      </button>
+    </ion-buttons> -->
+  </ion-navbar>
+</ion-header>
+
 <ion-content padding>
   <div style="text-align: center">
-    <h2>{{ hasSolved ? 'Congratulations!' : 'Love is over 💔'}}</h2>
+
     <h4>It was a...</h4>
     <h2>{{ drawing.name }}!</h2>
   </div>
+
   <div class="avatar" [style.background-image]="'url('+ drawing.path +')'"></div>
 
-  <p>Other people thought...</p>
-  <div *ngFor="let guess of otherGuesses">
-    <p><span [user]="guess.uid"></span> guessed <span [ngClass]="guess.guess === drawing.name ? 'correct' : 'incorrect'">{{ guess.guess }}</span> {{ fromNow(guess.timestamp) }}!</p>
+  <ion-list margin-top>
+    <ion-item no-lines style="text-align:center">
+      <p>Other people thought...</p>
+      <p *ngFor="let guess of otherGuesses">
+        <span>
+          <strong [user]="guess.uid"></strong>
+        </span> guessed
+        <span [ngClass]="guess.guess === drawing.name ? 'correct' : 'incorrect'">
+          <strong>{{ guess.guess }}</strong>
+        </span> {{ fromNow(guess.timestamp) }}!
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <div style="text-align:center">
+    <a style="font-weight:bold" (click)="goBack()">Back to drawings</a>
   </div>
-
-  <!-- <button ion-button margin-top outline block large color="primary" (click)="viewArtist()">
-    Artist info
-  </button> -->
-
-  <button ion-button margin-top outline block large color="secondary" (click)="goBack()">
-    Go back
-  </button>
 
 </ion-content>

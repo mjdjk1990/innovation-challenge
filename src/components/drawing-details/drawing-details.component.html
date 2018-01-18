@@ -1,0 +1,22 @@
+<!-- [ngClass]="!guessStatus ? '' : guessStatus?.hasSolved ? 'solved' : 'failed'" -->
+<ion-card [ngClass]="guessStatus && !guessStatus.hasSolved && guessStatus.remainingGuesses <= 0 ? 'failed' : guessStatus?.hasSolved ? 'solved' : ''">
+  
+  <user-details [uid]="drawing.author"></user-details>
+
+  <div style="text-align: center">
+    <img id="thumbnail" [src]="drawing.path">
+  </div>
+
+  <ion-item>
+    <p item-left>
+      <ion-icon name="chatbubbles"></ion-icon>
+      {{ drawing.totalGuesses ? + ' ' + drawing.totalGuesses : 'No guesses'}}
+    </p>
+    <p item-end>
+      <ion-note>
+        {{ fromNow(drawing.dateCreated) }}
+      </ion-note>
+    </p>
+  </ion-item>
+
+</ion-card>

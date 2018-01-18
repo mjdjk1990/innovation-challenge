@@ -1,7 +1,8 @@
 <ion-item no-lines color="light">
-  <ion-avatar item-start>
+  <!-- <ion-avatar item-start>
     <img [src]="(profile | async)?.avatar">
-  </ion-avatar>
+  </ion-avatar> -->
+  <div item-start class="user-avatar" [style.background-image]="'url('+ (profile | async)?.avatar +')'"></div>
 
   <div item-end>
     <img id="flag-img" [src]="(profile | async)?.office?.country === 'AU' ? 'assets/imgs/flag-aus.png' : (profile | async)?.office?.country === 'IND' ? 'assets/imgs/flag-india.png' : ''">

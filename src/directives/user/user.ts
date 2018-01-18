@@ -21,7 +21,6 @@ export class UserDirective {
   }
 
   ngOnDestroy() {
-    console.log('user dir destory');
     this.subscriber.unsubscribe();
   }
 

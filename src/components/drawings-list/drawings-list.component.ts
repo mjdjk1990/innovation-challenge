@@ -2,6 +2,8 @@ import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from 
 import { Drawing } from '../../models/drawing/drawing.interface';
 import { DataService } from '../../providers/data.service';
 import { Utilities } from '../../shared/utilities';
+import { AuthService } from '../../providers/auth.service';
+import { GuessStatus } from '../../models/guess/guess-status.interface';
 
 // changeDetection: ChangeDetectionStrategy.OnPush,
 
@@ -16,7 +18,7 @@ export class DrawingsListComponent {
 
   sortedDrawings: Drawing[];
 
-  constructor(private data: DataService) {
+  constructor(private data: DataService, private auth: AuthService) {
   }
 
   // to handle undefined or null values in the date and not crash
@@ -33,10 +35,6 @@ export class DrawingsListComponent {
 
   onClick(drawing: Drawing) {
     this.drawingSelected.emit(drawing);
-  }
-
-  fromNow(date: string) {
-    return Utilities.fromNow(date);
   }
 
   ngOnChanges() {

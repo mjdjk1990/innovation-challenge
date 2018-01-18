@@ -1,0 +1,53 @@
+<div class="container-full" *ngIf="loadingProfile && !loadingProfile.closed; else showProfile">
+  <div class="loading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <div class="text">Loading profile...</div>
+  </div>
+</div>
+
+<ng-template #showProfile>
+
+  <div padding text-center>
+    <div class="avatar" [style.background-image]="'url('+ profile?.avatar +')'"></div>
+
+    <div *ngIf="!isCore; else platformIsCore">
+      <button ion-button margin-top (click)="onDisplayPicture()">Change Photo</button>
+    </div>
+
+    <ng-template #platformIsCore>
+      <button ion-button margin-top>Change Photo
+        <input type="file" accept="image/*" (change)="onChangePhoto($event)" id="file-input">
+      </button>
+    </ng-template>
+  </div>
+
+  <!-- <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input [(ngModel)]="profile.email" type="email" name="email" email></ion-input>
+    </ion-item> -->
+  <form #editProfileForm="ngForm" novalidate>
+    <ion-item>
+      <ion-label floating>First name</ion-label>
+      <ion-input [(ngModel)]="profile.firstName" name="firstName" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Last name</ion-label>
+      <ion-input [(ngModel)]="profile.lastName" name="lastName" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>My Quote</ion-label>
+      <ion-input [(ngModel)]="profile.quote" name="quote" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Office</ion-label>
+      <ion-select [(ngModel)]="profile.office" name="profile.office" [placeholder]="profile.office ? profile.office.city + ', ' + profile.office.country : ''" required>
+        <ion-option *ngFor="let office of offices" [value]="office">
+          {{ office.city }}, {{ office.country }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <button ion-button outline margin-top color="primary" (click)="save(editProfileForm.valid)">Save profile</button>
+  </form>
+
+</ng-template>

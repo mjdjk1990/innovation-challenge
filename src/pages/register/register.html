@@ -1,5 +1,12 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
 <ion-content padding>
-  <h1>Register</h1>
   <ion-item>
     <ion-label floating>Email Address</ion-label>
     <ion-input [(ngModel)]="account.email" type="email" name="email" #email="ngModel" required email></ion-input>
@@ -11,11 +18,18 @@
     <ion-input [(ngModel)]="account.password" type="password" name="password" #password="ngModel" required></ion-input>
   </ion-item>
 
-  <button ion-button margin-top outline block large color="primary" (click)="register()">Register</button>
+  <ion-row class="register-form__buttons">
+    <div>
+      <!-- <button ion-button clear color="primary" (click)="returnToLoginPage()">Go Back</button> -->
+      <button ion-button (click)="register()">Register</button>
+    </div>
+  </ion-row>
+
+  <!-- <button ion-button margin-top outline block large color="primary" (click)="register()">Register</button>
 
   <div style="text-align: center">
     <p padding>
       <a (click)="returnToLoginPage()">Return to login</a>
     </p>
-  </div>
+  </div> -->
 </ion-content>

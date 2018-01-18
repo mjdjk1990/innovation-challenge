@@ -17,10 +17,10 @@
 
   <div class="guess-text">
     <div class="hidden-name" [ngClass]="correct ? 'correct' : ''">{{ hiddenName }}</div>
-    <div class="remaining-text">{{ remainingGuesses }} guess{{ remainingGuesses > 1 ? 'es' : '' }} remaining...</div>
+    <div *ngIf="remainingGuesses > 0" class="remaining-text">{{ remainingGuesses }} guess{{ remainingGuesses > 1 ? 'es' : '' }} remaining...</div>
   </div>
 
-  <ion-footer *ngIf="remainingGuesses > 0">
+  <ion-footer *ngIf="remainingGuesses > 0 && !correct">
     <ion-toolbar>
       <message-input (sendMessage)="submitGuess($event)"></message-input>
     </ion-toolbar>

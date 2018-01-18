@@ -68,22 +68,11 @@ export class LoginPage {
     if (!loginResponse.error) {
       this.authenticatedUser$ = this.auth.getAuthenticatedUser().subscribe(user => {
         user.reload();
-
         // user verified
         if (user.emailVerified) {
           this.data.getUserProfile(loginResponse.result.uid).subscribe(profile => {
             // check for profile data.
-            if (!profile) {
-              this.data.saveUserProfile(user.uid, {
-                firstName: null,
-                lastName: null,
-                avatar: null,
-                email: user.email,
-                office: null,
-                quote: null
-              });
-            }
-            this.navCtrl.push('TabsPage');
+            profile && profile['firstName'] ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('CreateProfilePage'); 
             this.dismissLoader();
           });
         } else {

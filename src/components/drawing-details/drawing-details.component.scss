@@ -1,0 +1,21 @@
+drawing-details {
+  ion-card {
+    border-top: 5px solid color($colors, primary);
+    &.solved {
+      border-color: color($colors, secondary);
+    }
+    &.failed {
+      border-color: color($colors, danger);
+    }
+  }
+  #thumbnail {
+    display: block;
+    width: 155px;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    margin: 0 auto;
+  }
+}

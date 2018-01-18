@@ -1,9 +1,9 @@
 page-register {
-  .buttons {
+  .register-form__buttons {
     padding: 10px;
     float: right;
 
-    div button{
+    div button:nth-of-type(1){
         margin-right: 10px;
     }
   }

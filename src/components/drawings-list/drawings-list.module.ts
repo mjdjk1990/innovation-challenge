@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DrawingsListComponent } from './drawings-list.component';
 import { IonicModule } from 'ionic-angular';
-import { UserDetailsModule } from '../user-details/user-details.module';
-import { GuessStatusDirectiveModule } from '../../directives/guess-status/guess-status.directive.module';
+import { DrawingDetailsModule } from '../drawing-details/drawing-details.module';
 
 @NgModule({
   declarations: [
@@ -10,8 +9,7 @@ import { GuessStatusDirectiveModule } from '../../directives/guess-status/guess-
   ],
   imports: [
     IonicModule,
-    UserDetailsModule,
-    GuessStatusDirectiveModule
+    DrawingDetailsModule
   ],
   exports: [
     DrawingsListComponent

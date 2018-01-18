@@ -9,27 +9,8 @@
   <ion-row>
     <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3 *ngFor="let drawing of drawings">
 
-      <ion-card [guess-status]="drawing.$key">
+      <drawing-details [drawing]="drawing" (click)="onClick(drawing)"></drawing-details>
 
-        <user-details [uid]="drawing.author"></user-details>
-
-        <div style="text-align: center">
-          <img id="thumbnail" [src]="drawing.path" (click)="onClick(drawing)">
-        </div>
-
-        <ion-item>
-          <p item-left>
-            <ion-icon name="chatbubbles"></ion-icon>
-            {{ drawing.totalGuesses ? + ' ' + drawing.totalGuesses : 'No guesses'}}
-          </p>
-          <p item-end>
-            <ion-note>
-              {{ fromNow(drawing.dateCreated) }}
-            </ion-note>
-          </p>
-        </ion-item>
-
-      </ion-card>
     </ion-col>
   </ion-row>
 </ion-grid>

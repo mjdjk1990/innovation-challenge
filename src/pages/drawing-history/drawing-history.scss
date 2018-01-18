@@ -1,0 +1,8 @@
+page-drawing-history {
+  .correct {
+    color: color($colors, secondary);
+  }
+  .incorrect {
+    color: color($colors, danger);
+  }
+}

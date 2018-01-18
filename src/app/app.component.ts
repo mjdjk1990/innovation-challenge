@@ -25,14 +25,15 @@ export class MyApp {
 
     this.auth.getAuthenticatedUser().subscribe(user => {
       if (user && user.emailVerified) {
-        this.rootPage = 'TabsPage';
-      //   this.data.getUserProfile(user).subscribe(profile => {
-      //     if (profile) {
-      //       this.rootPage = 'TabsPage';
-      //     } else {
-      //       this.rootPage = 'ProfilePage';
-      //     }
-      //   });
+        //this.rootPage = 'TabsPage';
+        this.data.getUserProfile(user.uid).subscribe(profile => {
+          // check for first name since a profile can exist with just an avatar. Quick and dirty and who cares
+          if (profile['firstName']) {
+            this.rootPage = 'TabsPage';
+          } else {
+            this.rootPage = 'CreateProfilePage';
+          }
+        });
       } else {
         this.rootPage = 'LoginPage';
       }

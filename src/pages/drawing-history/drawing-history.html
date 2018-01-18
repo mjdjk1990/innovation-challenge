@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-transform: capitalize">{{ drawing.name }}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="avatar" [style.background-image]="'url('+ drawing.path +')'"></div>
+  <p style="text-align:center">Created at {{ drawing.dateCreated | date: 'dd MMM yyyy, hh:mm:ss a' }}</p>
+
+  <ion-list>
+    <ion-card *ngFor="let guessData of guesses">
+      <user-details [uid]="guessData.user"></user-details>
+      <ion-item *ngFor="let guess of guessData.guesses">
+        <p>Guessed
+          <span [ngClass]="getGuessedWord(guess) === drawing.name ? 'correct' : 'incorrect'"><strong>{{ getGuessedWord(guess) }}</strong></span> {{ fromNow(guess.timestamp) }}!</p>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

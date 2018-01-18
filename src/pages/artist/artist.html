@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ artist?.firstName }} {{ artist?.lastName }}</ion-title>
+    <ion-title>{{ artist?.firstName }}'s Drawing</ion-title>
     <ion-buttons end>
       <button ion-button clear icon-only (click)="onClose()">
         <ion-icon name="close"></ion-icon>
@@ -23,15 +23,15 @@
   <ng-template #showProfile>
     <div class="avatar" [style.background-image]="'url('+ artist?.avatar +')'"></div>
 
-    <h6 style="text-align: center;">{{ artist.firstName }} {{ artist.lastName }}</h6>
+    <h6 style="text-align: center;">{{ artist?.firstName }} {{ artist?.lastName }}</h6>
     <p style="text-align: center; font-style: italic">
       {{ artist?.quote }}
     </p>
 
-    <ion-item>
-      <ion-label floating>Email</ion-label>
-      <ion-input [value]="artist.email" disabled></ion-input>
-    </ion-item>
+    <!--<ion-item>-->
+      <!--<ion-label floating>Email</ion-label>-->
+      <!--<ion-input [value]="artist.email" disabled></ion-input>-->
+    <!--</ion-item>-->
     <ion-item>
       <ion-label floating>Office</ion-label>
       <ion-input [value]="artist.office ? artist.office.city + ', ' + artist.office.country : ''" disabled></ion-input>

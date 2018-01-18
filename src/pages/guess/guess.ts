@@ -7,14 +7,6 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/takeWhile';
 import { DataService } from '../../providers/data.service';
 import { AuthService } from '../../providers/auth.service';
-import { GuessStatus } from '../../models/guess/guess-status.interface';
-
-/**
- * Generated class for the GuessPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -29,15 +21,13 @@ export class GuessPage {
   hiddenName: string;
   correct: boolean;
   remainingGuesses: number;
-
+  
   constructor(private navCtrl: NavController, private navParams: NavParams,
     private data: DataService, private auth: AuthService
   ) {
     this.drawing = this.navParams.get('drawing');
     this.hiddenName = this.drawing.name.replace(/[^_]/g, '_ ');
-  }
-
-  getClue() {
+    this.remainingGuesses = this.navParams.get('remainingGuesses') || this.guessCap;
   }
 
   async submitGuess(guess: string) {
@@ -83,20 +73,18 @@ export class GuessPage {
     }
   }
 
-  ionViewWillLoad() {
+  //ionViewWillEnter() {
     // get guess status for the user
-    this.data.getGuessStatus(this.drawing, this.auth.uid).subscribe((guessStatus: GuessStatus) => {
-      console.log(guessStatus);
-      if(guessStatus) {
-        if(guessStatus.remainingGuesses <= 0 || guessStatus.hasSolved) {
-          console.log(guessStatus.remainingGuesses);
-          this.navCtrl.push('ResultsPage', { hasSolved: guessStatus.hasSolved, drawing: this.drawing });
-        } else {
-          this.remainingGuesses = guessStatus.remainingGuesses;
-        } 
-      } else {
-        this.remainingGuesses = this.guessCap;
-      }
-    });
-  }
+    // this.data.getGuessStatus(this.drawing, this.auth.uid).subscribe((guessStatus: GuessStatus) => {
+    //   if(guessStatus) {
+    //     if(guessStatus.remainingGuesses <= 0 || guessStatus.hasSolved) {
+    //       this.navCtrl.push('ResultsPage', { hasSolved: guessStatus.hasSolved, drawing: this.drawing });
+    //     } else {
+    //       this.remainingGuesses = guessStatus.remainingGuesses;
+    //     } 
+    //   } else {
+    //     this.remainingGuesses = this.guessCap;
+    //   }
+    // });
+  //}
 }

@@ -45,11 +45,29 @@ export class DataService {
     }
   }
 
-  getDrawings(startAt?: number) {
-    // return this.database.list(`/drawings`, ref => ref.limitToFirst(10)).valueChanges();
-    return this.database.list(`/drawings`, ref => ref.limitToFirst(10)).snapshotChanges().map(changes => {
-      return changes.map(c => ({$key: c.payload.key, ...c.payload.val()}));
-    });
+  // return this.database.list(`/drawings`).snapshotChanges()
+  //     .map(changes => {
+  //       return changes.map(c => ({ 
+  //         $key: c.payload.key, ...c.payload.val() 
+  //       }))
+  //     });
+
+  getMyDrawings(uid: string) {
+    return this.database.list(`/drawings`).snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({
+          $key: c.payload.key, ...c.payload.val()
+        })).filter(x => x.author === uid);
+      });
+  }
+
+  getDrawings(uid: string) {
+    return this.database.list(`/drawings`).snapshotChanges()
+      .map(changes => {
+        return changes.map(c => ({
+          $key: c.payload.key, ...c.payload.val()
+        })).filter(x => x.author !== uid);
+      });
   }
 
   async saveDrawing(drawing: Drawing) {
@@ -80,23 +98,23 @@ export class DataService {
   }
 
   getGuessesForDrawing(drawing: Drawing) {
-    return this.database.object(`/guesses/${drawing.$key}`).valueChanges().take(1); 
+    return this.database.object(`/guesses/${drawing.$key}`).valueChanges().take(1);
   }
 
   async updateGuessHistory(drawing: Drawing, uid: string, guess: string) {
     const itemRef = this.database.object(`/guesses/${drawing.$key}/${uid}`);
     try {
-      await itemRef.update({[guess]: new Date().toJSON().toString()});
+      await itemRef.update({ [guess]: new Date().toJSON().toString() });
       return true;
     }
-    catch(e) {
+    catch (e) {
       console.error(e);
       return false;
     }
   }
 
   getGuessStatus(drawing: Drawing, uid: string) {
-    return this.database.object(`/guessStatus/${drawing.$key}/${uid}`).valueChanges().take(1); 
+    return this.database.object(`/guessStatus/${drawing.$key}/${uid}`).valueChanges().take(1);
   }
 
   async updateGuessStatus(drawing: Drawing, uid: string, status: GuessStatus) {
@@ -110,7 +128,7 @@ export class DataService {
       );
       return true;
     }
-    catch(e) {
+    catch (e) {
       console.error(e);
       return false;
     }
